@@ -1,0 +1,730 @@
+{
+  "istanbul": {
+    "mp4": {
+      "bytes": 2588144,
+      "sha1": "02f2094a80a7ba8800c455fdc8b84abdfeb6786c",
+      "ffprobe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "profile": "High",
+            "width": 1280,
+            "height": 720,
+            "pix_fmt": "yuv420p",
+            "r_frame_rate": "30/1",
+            "bit_rate": "597050"
+          },
+          {
+            "codec_name": "aac",
+            "profile": "LC",
+            "sample_rate": "44100",
+            "channels": 2,
+            "r_frame_rate": "0/0",
+            "bit_rate": "41015"
+          }
+        ],
+        "format": {
+          "duration": "32.000000",
+          "size": "2588144",
+          "bit_rate": "647036"
+        }
+      }
+    },
+    "poster": {
+      "bytes": 82103,
+      "sha1": "c7efef502248662750f3a181943e9ade07a2acc6"
+    },
+    "vtt": {
+      "bytes": 727,
+      "cues": 9
+    },
+    "loudness": {
+      "gain_db": 5.85,
+      "input_lufs": -25.3,
+      "input_tp": -7.35,
+      "output_lufs": -19.51,
+      "output_tp": -1.18
+    },
+    "segments": [
+      {
+        "step": 1,
+        "role": "teacher",
+        "call": "get_frames 11:20.0–11:40.0",
+        "type": "get_frames",
+        "span": null,
+        "spans": 1,
+        "mode": "frames",
+        "level": "detail",
+        "res": null,
+        "requested": [
+          680.0,
+          700.0
+        ],
+        "src": [
+          684.0,
+          687.0
+        ],
+        "frames": [
+          684.0,
+          684.5,
+          685.0,
+          685.5,
+          686.0,
+          686.5
+        ],
+        "hold": 0.5,
+        "rate": 2.0,
+        "reel": [
+          0.0,
+          3.0
+        ],
+        "raw": {
+          "file": "assets/project_page_media/istanbul/src_00679.0_00701.0.mkv",
+          "offset": 5.0
+        }
+      },
+      {
+        "step": 2,
+        "role": "teacher",
+        "call": "get_clip 11:22.0–11:37.0",
+        "type": "get_clip",
+        "span": null,
+        "spans": 1,
+        "mode": "clip",
+        "level": "detail",
+        "res": null,
+        "requested": [
+          682.0,
+          697.0
+        ],
+        "src": [
+          686.0,
+          691.0
+        ],
+        "reel": [
+          3.0,
+          8.0
+        ],
+        "raw": {
+          "file": "assets/project_page_media/istanbul/src_00679.0_00701.0.mkv",
+          "offset": 7.0
+        }
+      },
+      {
+        "step": 3,
+        "role": "teacher",
+        "call": "get_frames 11:25.0–11:30.0",
+        "type": "get_frames",
+        "span": null,
+        "spans": 1,
+        "mode": "frames",
+        "level": "detail",
+        "res": "high",
+        "requested": [
+          685.0,
+          690.0
+        ],
+        "src": [
+          686.0,
+          689.0
+        ],
+        "frames": [
+          686.0,
+          686.5,
+          687.0,
+          687.5,
+          688.0,
+          688.5
+        ],
+        "hold": 0.5,
+        "rate": 2.0,
+        "reel": [
+          8.0,
+          11.0
+        ],
+        "raw": {
+          "file": "assets/project_page_media/istanbul/src_00679.0_00701.0.mkv",
+          "offset": 7.0
+        }
+      },
+      {
+        "step": 13,
+        "role": "teacher",
+        "call": "get_multi_span, 4 frame spans",
+        "type": "get_multi_span",
+        "span": 1,
+        "spans": 4,
+        "mode": "frames",
+        "level": "coarse",
+        "res": null,
+        "requested": [
+          1170.0,
+          1230.0
+        ],
+        "src": [
+          1199.0,
+          1201.0
+        ],
+        "frames": [
+          1199.0,
+          1200.0
+        ],
+        "hold": 1.0,
+        "rate": 1.0,
+        "reel": [
+          11.0,
+          13.0
+        ],
+        "raw": {
+          "file": "assets/project_page_media/istanbul/src_01197.0_01203.0.mkv",
+          "offset": 2.0
+        }
+      },
+      {
+        "step": 13,
+        "role": "teacher",
+        "call": "get_multi_span, 4 frame spans",
+        "type": "get_multi_span",
+        "span": 2,
+        "spans": 4,
+        "mode": "frames",
+        "level": "coarse",
+        "res": null,
+        "requested": [
+          1350.0,
+          1410.0
+        ],
+        "src": [
+          1379.0,
+          1381.0
+        ],
+        "frames": [
+          1379.0,
+          1380.0
+        ],
+        "hold": 1.0,
+        "rate": 1.0,
+        "reel": [
+          13.0,
+          15.0
+        ],
+        "raw": {
+          "file": "assets/project_page_media/istanbul/src_01377.0_01383.0.mkv",
+          "offset": 2.0
+        }
+      },
+      {
+        "step": 13,
+        "role": "teacher",
+        "call": "get_multi_span, 4 frame spans",
+        "type": "get_multi_span",
+        "span": 3,
+        "spans": 4,
+        "mode": "frames",
+        "level": "coarse",
+        "res": null,
+        "requested": [
+          1710.0,
+          1770.0
+        ],
+        "src": [
+          1754.0,
+          1756.0
+        ],
+        "frames": [
+          1754.0,
+          1755.0
+        ],
+        "hold": 1.0,
+        "rate": 1.0,
+        "reel": [
+          15.0,
+          17.0
+        ],
+        "raw": {
+          "file": "assets/project_page_media/istanbul/src_01749.0_01763.0.mkv",
+          "offset": 5.0
+        }
+      },
+      {
+        "step": 13,
+        "role": "teacher",
+        "call": "get_multi_span, 4 frame spans",
+        "type": "get_multi_span",
+        "span": 4,
+        "spans": 4,
+        "mode": "frames",
+        "level": "coarse",
+        "res": null,
+        "requested": [
+          2310.0,
+          2370.0
+        ],
+        "src": [
+          2339.0,
+          2341.0
+        ],
+        "frames": [
+          2339.0,
+          2340.0
+        ],
+        "hold": 1.0,
+        "rate": 1.0,
+        "reel": [
+          17.0,
+          19.0
+        ],
+        "raw": {
+          "file": "assets/project_page_media/istanbul/src_02337.0_02343.0.mkv",
+          "offset": 2.0
+        }
+      },
+      {
+        "step": 14,
+        "role": "teacher",
+        "call": "get_clip 29:10.0–29:22.0",
+        "type": "get_clip",
+        "span": null,
+        "spans": 1,
+        "mode": "clip",
+        "level": "detail",
+        "res": null,
+        "requested": [
+          1750.0,
+          1762.0
+        ],
+        "src": [
+          1752.0,
+          1760.0
+        ],
+        "reel": [
+          19.0,
+          27.0
+        ],
+        "raw": {
+          "file": "assets/project_page_media/istanbul/src_01749.0_01763.0.mkv",
+          "offset": 3.0
+        }
+      },
+      {
+        "step": 16,
+        "role": "teacher",
+        "call": "get_frames 29:13.0–29:18.0",
+        "type": "get_frames",
+        "span": null,
+        "spans": 1,
+        "mode": "frames",
+        "level": "detail",
+        "res": "high",
+        "requested": [
+          1753.0,
+          1758.0
+        ],
+        "src": [
+          1753.0,
+          1758.0
+        ],
+        "frames": [
+          1753.0,
+          1753.5,
+          1754.0,
+          1754.5,
+          1755.0,
+          1755.5,
+          1756.0,
+          1756.5,
+          1757.0,
+          1757.5
+        ],
+        "hold": 0.5,
+        "rate": 2.0,
+        "reel": [
+          27.0,
+          32.0
+        ],
+        "raw": {
+          "file": "assets/project_page_media/istanbul/src_01749.0_01763.0.mkv",
+          "offset": 4.0
+        }
+      }
+    ]
+  },
+  "porsche": {
+    "mp4": {
+      "bytes": 2554594,
+      "sha1": "4107c23d2d4b18e0ccc5e2d1e7e3a23c87d3bdeb",
+      "ffprobe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "profile": "High",
+            "width": 1280,
+            "height": 720,
+            "pix_fmt": "yuv420p",
+            "r_frame_rate": "25/1",
+            "bit_rate": "580421"
+          },
+          {
+            "codec_name": "aac",
+            "profile": "LC",
+            "sample_rate": "44100",
+            "channels": 2,
+            "r_frame_rate": "0/0",
+            "bit_rate": "51309"
+          }
+        ],
+        "format": {
+          "duration": "32.000000",
+          "size": "2554594",
+          "bit_rate": "638648"
+        }
+      }
+    },
+    "poster": {
+      "bytes": 68373,
+      "sha1": "5d94f7697b2b5981d6943400c873411da81a2c06"
+    },
+    "vtt": {
+      "bytes": 469,
+      "cues": 5
+    },
+    "loudness": {
+      "gain_db": 3.48,
+      "input_lufs": -19.48,
+      "input_tp": -6.42,
+      "output_lufs": -16.07,
+      "output_tp": -2.48
+    },
+    "segments": [
+      {
+        "step": 1,
+        "role": "student",
+        "call": "get_clip 00:20.0–00:45.0",
+        "type": "get_clip",
+        "span": null,
+        "spans": 1,
+        "mode": "clip",
+        "level": "detail",
+        "res": null,
+        "requested": [
+          20.0,
+          45.0
+        ],
+        "src": [
+          20.0,
+          32.0
+        ],
+        "reel": [
+          0.0,
+          12.0
+        ],
+        "raw": {
+          "file": "assets/project_page_media/porsche/src_00000.0_00046.0.mkv",
+          "offset": 20.0
+        }
+      },
+      {
+        "step": 2,
+        "role": "teacher",
+        "call": "get_frames 00:21.0–00:25.0",
+        "type": "get_frames",
+        "span": null,
+        "spans": 1,
+        "mode": "frames",
+        "level": "detail",
+        "res": "high",
+        "requested": [
+          21.0,
+          25.0
+        ],
+        "src": [
+          21.0,
+          25.0
+        ],
+        "frames": [
+          21.0,
+          21.5,
+          22.0,
+          22.5,
+          23.0,
+          23.5,
+          24.0,
+          24.5
+        ],
+        "hold": 1.0,
+        "rate": 2.0,
+        "reel": [
+          12.0,
+          20.0
+        ],
+        "raw": {
+          "file": "assets/project_page_media/porsche/src_00000.0_00046.0.mkv",
+          "offset": 21.0
+        }
+      },
+      {
+        "step": 3,
+        "role": "teacher",
+        "call": "get_audio 00:15.0–00:35.0",
+        "type": "get_audio",
+        "span": null,
+        "spans": 1,
+        "mode": "audio",
+        "level": null,
+        "res": null,
+        "requested": [
+          15.0,
+          35.0
+        ],
+        "src": [
+          26.0,
+          30.0
+        ],
+        "reel": [
+          20.0,
+          24.0
+        ],
+        "raw": {
+          "file": "assets/project_page_media/porsche/src_00000.0_00046.0.mkv",
+          "offset": 26.0
+        }
+      },
+      {
+        "step": 4,
+        "role": "teacher",
+        "call": "get_frames 00:00.0–00:20.0",
+        "type": "get_frames",
+        "span": null,
+        "spans": 1,
+        "mode": "frames",
+        "level": "detail",
+        "res": null,
+        "requested": [
+          0.0,
+          20.0
+        ],
+        "src": [
+          17.0,
+          20.0
+        ],
+        "frames": [
+          17.0,
+          17.5,
+          18.0,
+          18.5,
+          19.0,
+          19.5
+        ],
+        "hold": 0.5,
+        "rate": 2.0,
+        "reel": [
+          24.0,
+          27.0
+        ],
+        "raw": {
+          "file": "assets/project_page_media/porsche/src_00000.0_00046.0.mkv",
+          "offset": 17.0
+        }
+      },
+      {
+        "step": 5,
+        "role": "teacher",
+        "call": "get_frames 00:17.5–00:20.0",
+        "type": "get_frames",
+        "span": null,
+        "spans": 1,
+        "mode": "frames",
+        "level": "detail",
+        "res": "high",
+        "requested": [
+          17.5,
+          20.0
+        ],
+        "src": [
+          17.5,
+          20.0
+        ],
+        "frames": [
+          17.5,
+          18.0,
+          18.5,
+          19.0,
+          19.5
+        ],
+        "hold": 1.0,
+        "rate": 2.0,
+        "reel": [
+          27.0,
+          32.0
+        ],
+        "raw": {
+          "file": "assets/project_page_media/porsche/src_00000.0_00046.0.mkv",
+          "offset": 17.5
+        }
+      }
+    ]
+  },
+  "launch": {
+    "mp4": {
+      "bytes": 2856368,
+      "sha1": "80121598f7bc8e143ae29274c4112f5df8d534f2",
+      "ffprobe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "profile": "High",
+            "width": 1280,
+            "height": 720,
+            "pix_fmt": "yuv420p",
+            "r_frame_rate": "30/1",
+            "bit_rate": "808257"
+          },
+          {
+            "codec_name": "aac",
+            "profile": "LC",
+            "sample_rate": "44100",
+            "channels": 2,
+            "r_frame_rate": "0/0",
+            "bit_rate": "97207"
+          }
+        ],
+        "format": {
+          "duration": "25.000000",
+          "size": "2856368",
+          "bit_rate": "914037"
+        }
+      }
+    },
+    "poster": {
+      "bytes": 87044,
+      "sha1": "d6c131accd2cdd4f81fa717fc8be08e70f619fad"
+    },
+    "vtt": {
+      "bytes": 661,
+      "cues": 4
+    },
+    "loudness": {
+      "gain_db": -4.97,
+      "input_lufs": -11.03,
+      "input_tp": 0.05,
+      "output_lufs": -16.05,
+      "output_tp": -3.54
+    },
+    "segments": [
+      {
+        "step": 1,
+        "role": "teacher",
+        "call": "get_multi_span, 6 spans",
+        "type": "get_multi_span",
+        "span": 1,
+        "spans": 6,
+        "mode": "audio",
+        "level": null,
+        "res": null,
+        "requested": [
+          0.0,
+          8.0
+        ],
+        "src": [
+          0.0,
+          5.0
+        ],
+        "reel": [
+          0.0,
+          5.0
+        ],
+        "raw": {
+          "file": "assets/project_page_media/launch/src_00000.0_00010.0.mkv",
+          "offset": 0.0
+        }
+      },
+      {
+        "step": 2,
+        "role": "teacher",
+        "call": "get_clip 00:00.0–00:08.0",
+        "type": "get_clip",
+        "span": null,
+        "spans": 1,
+        "mode": "clip",
+        "level": "detail",
+        "res": null,
+        "requested": [
+          0.0,
+          8.0
+        ],
+        "src": [
+          0.0,
+          7.0
+        ],
+        "reel": [
+          5.0,
+          12.0
+        ],
+        "raw": {
+          "file": "assets/project_page_media/launch/src_00000.0_00010.0.mkv",
+          "offset": 0.0
+        }
+      },
+      {
+        "step": 4,
+        "role": "teacher",
+        "call": "get_multi_span, 4 audio spans",
+        "type": "get_multi_span",
+        "span": 1,
+        "spans": 4,
+        "mode": "audio",
+        "level": null,
+        "res": null,
+        "requested": [
+          160.0,
+          180.0
+        ],
+        "src": [
+          163.0,
+          169.0
+        ],
+        "reel": [
+          12.0,
+          18.0
+        ],
+        "raw": {
+          "file": "assets/project_page_media/launch/src_00159.0_00181.0.mkv",
+          "offset": 4.0
+        }
+      },
+      {
+        "step": 5,
+        "role": "teacher",
+        "call": "get_clip 02:43.0–02:50.0",
+        "type": "get_clip",
+        "span": null,
+        "spans": 1,
+        "mode": "clip",
+        "level": "detail",
+        "res": null,
+        "requested": [
+          163.0,
+          170.0
+        ],
+        "src": [
+          163.0,
+          170.0
+        ],
+        "reel": [
+          18.0,
+          25.0
+        ],
+        "raw": {
+          "file": "assets/project_page_media/launch/src_00159.0_00181.0.mkv",
+          "offset": 4.0
+        }
+      }
+    ]
+  }
+}

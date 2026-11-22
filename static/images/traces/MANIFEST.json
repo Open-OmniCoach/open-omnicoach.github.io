@@ -1,0 +1,752 @@
+{
+  "istanbul": [
+    {
+      "file": "0079.5.jpg",
+      "source": "assets/figs/dataset_teaser/data/remote_iclr2027_viewer_20261009/extract_20261009/90a8cc1217e024b69c6b81cc/uni_00_0079.5.jpg",
+      "size": [
+        480,
+        270
+      ]
+    },
+    {
+      "file": "0195.0.jpg",
+      "source": "assets/figs/dataset_teaser/data/remote_iclr2027_viewer_20261009/extract_20261009/90a8cc1217e024b69c6b81cc/key_0195.0.jpg",
+      "size": [
+        640,
+        360
+      ]
+    },
+    {
+      "file": "0449.0.jpg",
+      "source": "assets/figs/dataset_teaser/data/remote_iclr2027_viewer_20261009/extract_20261009/90a8cc1217e024b69c6b81cc/key_0449.0.jpg",
+      "size": [
+        640,
+        360
+      ]
+    },
+    {
+      "file": "0556.4.jpg",
+      "source": "assets/figs/dataset_teaser/data/remote_iclr2027_viewer_20261009/extract_20261009/90a8cc1217e024b69c6b81cc/uni_03_0556.4.jpg",
+      "size": [
+        480,
+        270
+      ]
+    },
+    {
+      "file": "0686.0.jpg",
+      "source": "assets/figs/dataset_teaser/data/remote_iclr2027_viewer_20261009/extract_20261009/90a8cc1217e024b69c6b81cc/key_0686.0.jpg",
+      "size": [
+        640,
+        360
+      ]
+    },
+    {
+      "file": "0688.0.jpg",
+      "source": "assets/figs/dataset_teaser/data/remote_iclr2027_viewer_20261009/extract_20261009/v11_media/istanbul/hi_00688.0.jpg",
+      "size": [
+        800,
+        450
+      ]
+    },
+    {
+      "file": "0690.0.jpg",
+      "source": "assets/figs/dataset_teaser/data/remote_iclr2027_viewer_20261009/extract_20261009/90a8cc1217e024b69c6b81cc/v05/hi_0690.0.jpg",
+      "size": [
+        800,
+        450
+      ]
+    },
+    {
+      "file": "0691.5.jpg",
+      "source": "assets/figs/dataset_teaser/data/remote_iclr2027_viewer_20261009/extract_20261009/90a8cc1217e024b69c6b81cc/v05/hi_0691.5.jpg",
+      "size": [
+        800,
+        450
+      ]
+    },
+    {
+      "file": "0693.0.jpg",
+      "source": "assets/figs/dataset_teaser/data/remote_iclr2027_viewer_20261009/extract_20261009/90a8cc1217e024b69c6b81cc/v05/hi_0693.0.jpg",
+      "size": [
+        800,
+        450
+      ]
+    },
+    {
+      "file": "0715.4.jpg",
+      "source": "assets/figs/dataset_teaser/data/remote_iclr2027_viewer_20261009/extract_20261009/90a8cc1217e024b69c6b81cc/uni_04_0715.4.jpg",
+      "size": [
+        480,
+        270
+      ]
+    },
+    {
+      "file": "0915.0.jpg",
+      "source": "assets/figs/dataset_teaser/data/remote_iclr2027_viewer_20261009/extract_20261009/90a8cc1217e024b69c6b81cc/key_0915.0.jpg",
+      "size": [
+        640,
+        360
+      ]
+    },
+    {
+      "file": "1033.4.jpg",
+      "source": "assets/figs/dataset_teaser/data/remote_iclr2027_viewer_20261009/extract_20261009/90a8cc1217e024b69c6b81cc/uni_06_1033.4.jpg",
+      "size": [
+        480,
+        270
+      ]
+    },
+    {
+      "file": "1108.0.jpg",
+      "source": "assets/figs/dataset_teaser/data/remote_iclr2027_viewer_20261009/extract_20261009/90a8cc1217e024b69c6b81cc/v05/hi_1108.0.jpg",
+      "size": [
+        800,
+        450
+      ]
+    },
+    {
+      "file": "1200.0.jpg",
+      "source": "assets/figs/dataset_teaser/data/remote_iclr2027_viewer_20261009/extract_20261009/90a8cc1217e024b69c6b81cc/v05/span_1200.0.jpg",
+      "size": [
+        640,
+        360
+      ]
+    },
+    {
+      "file": "1380.0.jpg",
+      "source": "assets/figs/dataset_teaser/data/remote_iclr2027_viewer_20261009/extract_20261009/90a8cc1217e024b69c6b81cc/v05/span_1380.0.jpg",
+      "size": [
+        640,
+        360
+      ]
+    },
+    {
+      "file": "1515.0.jpg",
+      "source": "assets/figs/dataset_teaser/data/remote_iclr2027_viewer_20261009/extract_20261009/90a8cc1217e024b69c6b81cc/key_1515.0.jpg",
+      "size": [
+        640,
+        360
+      ]
+    },
+    {
+      "file": "1669.3.jpg",
+      "source": "assets/figs/dataset_teaser/data/remote_iclr2027_viewer_20261009/extract_20261009/90a8cc1217e024b69c6b81cc/uni_10_1669.3.jpg",
+      "size": [
+        480,
+        270
+      ]
+    },
+    {
+      "file": "1753.5.jpg",
+      "source": "assets/figs/dataset_teaser/data/remote_iclr2027_viewer_20261009/extract_20261009/90a8cc1217e024b69c6b81cc/key_1753.5.jpg",
+      "size": [
+        640,
+        360
+      ]
+    },
+    {
+      "file": "1754.5.jpg",
+      "source": "assets/figs/dataset_teaser/data/remote_iclr2027_viewer_20261009/extract_20261009/90a8cc1217e024b69c6b81cc/key_1754.5.jpg",
+      "size": [
+        640,
+        360
+      ]
+    },
+    {
+      "file": "1756.0.jpg",
+      "source": "assets/figs/dataset_teaser/data/remote_iclr2027_viewer_20261009/extract_20261009/90a8cc1217e024b69c6b81cc/v05/hi_1756.0.jpg",
+      "size": [
+        800,
+        450
+      ]
+    },
+    {
+      "file": "1757.0.jpg",
+      "source": "assets/figs/dataset_teaser/data/remote_iclr2027_viewer_20261009/extract_20261009/90a8cc1217e024b69c6b81cc/v05/hi_1757.0.jpg",
+      "size": [
+        800,
+        450
+      ]
+    },
+    {
+      "file": "2022.0.jpg",
+      "source": "assets/figs/dataset_teaser/data/remote_iclr2027_viewer_20261009/extract_20261009/90a8cc1217e024b69c6b81cc/key_2022.0.jpg",
+      "size": [
+        640,
+        360
+      ]
+    },
+    {
+      "file": "2115.0.jpg",
+      "source": "assets/figs/dataset_teaser/data/remote_iclr2027_viewer_20261009/extract_20261009/90a8cc1217e024b69c6b81cc/key_2115.0.jpg",
+      "size": [
+        640,
+        360
+      ]
+    },
+    {
+      "file": "2305.2.jpg",
+      "source": "assets/figs/dataset_teaser/data/remote_iclr2027_viewer_20261009/extract_20261009/90a8cc1217e024b69c6b81cc/uni_14_2305.2.jpg",
+      "size": [
+        480,
+        270
+      ]
+    },
+    {
+      "file": "2340.0.jpg",
+      "source": "assets/figs/dataset_teaser/data/remote_iclr2027_viewer_20261009/extract_20261009/90a8cc1217e024b69c6b81cc/v05/span_2340.0.jpg",
+      "size": [
+        640,
+        360
+      ]
+    },
+    {
+      "file": "film/0079.5.jpg",
+      "source": "assets/figs/dataset_teaser/data/remote_iclr2027_viewer_20261009/extract_20261009/v13_film/istanbul/film16_00_00079.5.jpg",
+      "size": [
+        320,
+        180
+      ]
+    },
+    {
+      "file": "film/0238.5.jpg",
+      "source": "assets/figs/dataset_teaser/data/remote_iclr2027_viewer_20261009/extract_20261009/v13_film/istanbul/film16_01_00238.5.jpg",
+      "size": [
+        320,
+        180
+      ]
+    },
+    {
+      "file": "film/0397.5.jpg",
+      "source": "assets/figs/dataset_teaser/data/remote_iclr2027_viewer_20261009/extract_20261009/v13_film/istanbul/film16_02_00397.5.jpg",
+      "size": [
+        320,
+        180
+      ]
+    },
+    {
+      "file": "film/0556.4.jpg",
+      "source": "assets/figs/dataset_teaser/data/remote_iclr2027_viewer_20261009/extract_20261009/v13_film/istanbul/film16_03_00556.4.jpg",
+      "size": [
+        320,
+        180
+      ]
+    },
+    {
+      "file": "film/0715.4.jpg",
+      "source": "assets/figs/dataset_teaser/data/remote_iclr2027_viewer_20261009/extract_20261009/v13_film/istanbul/film16_04_00715.4.jpg",
+      "size": [
+        320,
+        180
+      ]
+    },
+    {
+      "file": "film/0874.4.jpg",
+      "source": "assets/figs/dataset_teaser/data/remote_iclr2027_viewer_20261009/extract_20261009/v13_film/istanbul/film16_05_00874.4.jpg",
+      "size": [
+        320,
+        180
+      ]
+    },
+    {
+      "file": "film/1033.4.jpg",
+      "source": "assets/figs/dataset_teaser/data/remote_iclr2027_viewer_20261009/extract_20261009/v13_film/istanbul/film16_06_01033.4.jpg",
+      "size": [
+        320,
+        180
+      ]
+    },
+    {
+      "file": "film/1192.4.jpg",
+      "source": "assets/figs/dataset_teaser/data/remote_iclr2027_viewer_20261009/extract_20261009/v13_film/istanbul/film16_07_01192.4.jpg",
+      "size": [
+        320,
+        180
+      ]
+    },
+    {
+      "file": "film/1351.3.jpg",
+      "source": "assets/figs/dataset_teaser/data/remote_iclr2027_viewer_20261009/extract_20261009/v13_film/istanbul/film16_08_01351.3.jpg",
+      "size": [
+        320,
+        180
+      ]
+    },
+    {
+      "file": "film/1510.3.jpg",
+      "source": "assets/figs/dataset_teaser/data/remote_iclr2027_viewer_20261009/extract_20261009/v13_film/istanbul/film16_09_01510.3.jpg",
+      "size": [
+        320,
+        180
+      ]
+    },
+    {
+      "file": "film/1669.3.jpg",
+      "source": "assets/figs/dataset_teaser/data/remote_iclr2027_viewer_20261009/extract_20261009/v13_film/istanbul/film16_10_01669.3.jpg",
+      "size": [
+        320,
+        180
+      ]
+    },
+    {
+      "file": "film/1828.3.jpg",
+      "source": "assets/figs/dataset_teaser/data/remote_iclr2027_viewer_20261009/extract_20261009/v13_film/istanbul/film16_11_01828.3.jpg",
+      "size": [
+        320,
+        180
+      ]
+    },
+    {
+      "file": "film/1987.3.jpg",
+      "source": "assets/figs/dataset_teaser/data/remote_iclr2027_viewer_20261009/extract_20261009/v13_film/istanbul/film16_12_01987.3.jpg",
+      "size": [
+        320,
+        180
+      ]
+    },
+    {
+      "file": "film/2146.2.jpg",
+      "source": "assets/figs/dataset_teaser/data/remote_iclr2027_viewer_20261009/extract_20261009/v13_film/istanbul/film16_13_02146.2.jpg",
+      "size": [
+        320,
+        180
+      ]
+    },
+    {
+      "file": "film/2305.2.jpg",
+      "source": "assets/figs/dataset_teaser/data/remote_iclr2027_viewer_20261009/extract_20261009/v13_film/istanbul/film16_14_02305.2.jpg",
+      "size": [
+        320,
+        180
+      ]
+    },
+    {
+      "file": "film/2464.2.jpg",
+      "source": "assets/figs/dataset_teaser/data/remote_iclr2027_viewer_20261009/extract_20261009/v13_film/istanbul/film16_15_02464.2.jpg",
+      "size": [
+        320,
+        180
+      ]
+    }
+  ],
+  "porsche": [
+    {
+      "file": "0010.0.jpg",
+      "source": "assets/figs/dataset_teaser/data/remote_iclr2027_viewer_20261009/extract_20261009/v11_media/porsche/hi_00010.0.jpg",
+      "size": [
+        800,
+        450
+      ]
+    },
+    {
+      "file": "0018.8.jpg",
+      "source": "assets/figs/dataset_teaser/data/remote_iclr2027_viewer_20261009/extract_20261009/v11_media/porsche/hi_00018.8.jpg",
+      "size": [
+        800,
+        450
+      ]
+    },
+    {
+      "file": "0021.0.jpg",
+      "source": "assets/figs/dataset_teaser/data/remote_iclr2027_viewer_20261009/extract_20261009/v15_frames/porsche/f_00021.0.jpg",
+      "size": [
+        800,
+        450
+      ]
+    },
+    {
+      "file": "0022.0.jpg",
+      "source": "assets/figs/dataset_teaser/data/remote_iclr2027_viewer_20261009/extract_20261009/v15_frames/porsche/f_00022.0.jpg",
+      "size": [
+        800,
+        450
+      ]
+    },
+    {
+      "file": "0023.0.jpg",
+      "source": "assets/figs/dataset_teaser/data/remote_iclr2027_viewer_20261009/extract_20261009/v15_frames/porsche/f_00023.0.jpg",
+      "size": [
+        800,
+        450
+      ]
+    },
+    {
+      "file": "0024.0.jpg",
+      "source": "assets/figs/dataset_teaser/data/remote_iclr2027_viewer_20261009/extract_20261009/v15_frames/porsche/f_00024.0.jpg",
+      "size": [
+        800,
+        450
+      ]
+    },
+    {
+      "file": "0028.1.jpg",
+      "source": "assets/figs/dataset_teaser/data/remote_iclr2027_viewer_20261009/extract_20261009/mcq_picks/mcq/3529c33ae0b5e06d53788ecc/f_00028.1.jpg",
+      "size": [
+        480,
+        270
+      ]
+    },
+    {
+      "file": "0032.5.jpg",
+      "source": "assets/figs/dataset_teaser/data/remote_iclr2027_viewer_20261009/extract_20261009/v11_media/porsche/hi_00032.5.jpg",
+      "size": [
+        800,
+        450
+      ]
+    },
+    {
+      "file": "film/0029.4.jpg",
+      "source": "assets/figs/dataset_teaser/data/remote_iclr2027_viewer_20261009/extract_20261009/v13_film/porsche/film16_00_00029.4.jpg",
+      "size": [
+        320,
+        180
+      ]
+    },
+    {
+      "file": "film/0088.3.jpg",
+      "source": "assets/figs/dataset_teaser/data/remote_iclr2027_viewer_20261009/extract_20261009/v13_film/porsche/film16_01_00088.3.jpg",
+      "size": [
+        320,
+        180
+      ]
+    },
+    {
+      "file": "film/0147.1.jpg",
+      "source": "assets/figs/dataset_teaser/data/remote_iclr2027_viewer_20261009/extract_20261009/v13_film/porsche/film16_02_00147.1.jpg",
+      "size": [
+        320,
+        180
+      ]
+    },
+    {
+      "file": "film/0206.0.jpg",
+      "source": "assets/figs/dataset_teaser/data/remote_iclr2027_viewer_20261009/extract_20261009/v13_film/porsche/film16_03_00206.0.jpg",
+      "size": [
+        320,
+        180
+      ]
+    },
+    {
+      "file": "film/0264.8.jpg",
+      "source": "assets/figs/dataset_teaser/data/remote_iclr2027_viewer_20261009/extract_20261009/v13_film/porsche/film16_04_00264.8.jpg",
+      "size": [
+        320,
+        180
+      ]
+    },
+    {
+      "file": "film/0323.6.jpg",
+      "source": "assets/figs/dataset_teaser/data/remote_iclr2027_viewer_20261009/extract_20261009/v13_film/porsche/film16_05_00323.6.jpg",
+      "size": [
+        320,
+        180
+      ]
+    },
+    {
+      "file": "film/0382.5.jpg",
+      "source": "assets/figs/dataset_teaser/data/remote_iclr2027_viewer_20261009/extract_20261009/v13_film/porsche/film16_06_00382.5.jpg",
+      "size": [
+        320,
+        180
+      ]
+    },
+    {
+      "file": "film/0441.3.jpg",
+      "source": "assets/figs/dataset_teaser/data/remote_iclr2027_viewer_20261009/extract_20261009/v13_film/porsche/film16_07_00441.3.jpg",
+      "size": [
+        320,
+        180
+      ]
+    },
+    {
+      "file": "film/0500.2.jpg",
+      "source": "assets/figs/dataset_teaser/data/remote_iclr2027_viewer_20261009/extract_20261009/v13_film/porsche/film16_08_00500.2.jpg",
+      "size": [
+        320,
+        180
+      ]
+    },
+    {
+      "file": "film/0559.0.jpg",
+      "source": "assets/figs/dataset_teaser/data/remote_iclr2027_viewer_20261009/extract_20261009/v13_film/porsche/film16_09_00559.0.jpg",
+      "size": [
+        320,
+        180
+      ]
+    },
+    {
+      "file": "film/0617.9.jpg",
+      "source": "assets/figs/dataset_teaser/data/remote_iclr2027_viewer_20261009/extract_20261009/v13_film/porsche/film16_10_00617.9.jpg",
+      "size": [
+        320,
+        180
+      ]
+    },
+    {
+      "file": "film/0676.7.jpg",
+      "source": "assets/figs/dataset_teaser/data/remote_iclr2027_viewer_20261009/extract_20261009/v13_film/porsche/film16_11_00676.7.jpg",
+      "size": [
+        320,
+        180
+      ]
+    },
+    {
+      "file": "film/0735.5.jpg",
+      "source": "assets/figs/dataset_teaser/data/remote_iclr2027_viewer_20261009/extract_20261009/v13_film/porsche/film16_12_00735.5.jpg",
+      "size": [
+        320,
+        180
+      ]
+    },
+    {
+      "file": "film/0794.4.jpg",
+      "source": "assets/figs/dataset_teaser/data/remote_iclr2027_viewer_20261009/extract_20261009/v13_film/porsche/film16_13_00794.4.jpg",
+      "size": [
+        320,
+        180
+      ]
+    },
+    {
+      "file": "film/0853.2.jpg",
+      "source": "assets/figs/dataset_teaser/data/remote_iclr2027_viewer_20261009/extract_20261009/v13_film/porsche/film16_14_00853.2.jpg",
+      "size": [
+        320,
+        180
+      ]
+    },
+    {
+      "file": "film/0912.1.jpg",
+      "source": "assets/figs/dataset_teaser/data/remote_iclr2027_viewer_20261009/extract_20261009/v13_film/porsche/film16_15_00912.1.jpg",
+      "size": [
+        320,
+        180
+      ]
+    }
+  ],
+  "launch": [
+    {
+      "file": "0002.0.jpg",
+      "source": "assets/project_page_media/launch/frames/f_00002.0.jpg",
+      "size": [
+        800,
+        450
+      ]
+    },
+    {
+      "file": "0003.0.jpg",
+      "source": "assets/project_page_media/launch/frames/f_00003.0.jpg",
+      "size": [
+        800,
+        450
+      ]
+    },
+    {
+      "file": "0004.0.jpg",
+      "source": "assets/project_page_media/launch/frames/f_00004.0.jpg",
+      "size": [
+        800,
+        450
+      ]
+    },
+    {
+      "file": "0005.0.jpg",
+      "source": "assets/project_page_media/launch/frames/f_00005.0.jpg",
+      "size": [
+        800,
+        450
+      ]
+    },
+    {
+      "file": "0165.0.jpg",
+      "source": "assets/project_page_media/launch/frames/f_00165.0.jpg",
+      "size": [
+        800,
+        450
+      ]
+    },
+    {
+      "file": "0166.0.jpg",
+      "source": "assets/project_page_media/launch/frames/f_00166.0.jpg",
+      "size": [
+        800,
+        450
+      ]
+    },
+    {
+      "file": "0167.0.jpg",
+      "source": "assets/project_page_media/launch/frames/f_00167.0.jpg",
+      "size": [
+        800,
+        450
+      ]
+    },
+    {
+      "file": "0168.0.jpg",
+      "source": "assets/project_page_media/launch/frames/f_00168.0.jpg",
+      "size": [
+        800,
+        450
+      ]
+    },
+    {
+      "file": "0169.0.jpg",
+      "source": "assets/project_page_media/launch/frames/f_00169.0.jpg",
+      "size": [
+        800,
+        450
+      ]
+    },
+    {
+      "file": "0598.0.jpg",
+      "source": "assets/project_page_media/launch/frames/f_00598.0.jpg",
+      "size": [
+        800,
+        450
+      ]
+    },
+    {
+      "file": "0600.0.jpg",
+      "source": "assets/project_page_media/launch/frames/f_00600.0.jpg",
+      "size": [
+        800,
+        450
+      ]
+    },
+    {
+      "file": "0602.0.jpg",
+      "source": "assets/project_page_media/launch/frames/f_00602.0.jpg",
+      "size": [
+        800,
+        450
+      ]
+    },
+    {
+      "file": "film/0037.5.jpg",
+      "source": "assets/project_page_media/launch/film/film16_00037.5.jpg",
+      "size": [
+        320,
+        180
+      ]
+    },
+    {
+      "file": "film/0112.6.jpg",
+      "source": "assets/project_page_media/launch/film/film16_00112.6.jpg",
+      "size": [
+        320,
+        180
+      ]
+    },
+    {
+      "file": "film/0187.6.jpg",
+      "source": "assets/project_page_media/launch/film/film16_00187.6.jpg",
+      "size": [
+        320,
+        180
+      ]
+    },
+    {
+      "file": "film/0262.6.jpg",
+      "source": "assets/project_page_media/launch/film/film16_00262.6.jpg",
+      "size": [
+        320,
+        180
+      ]
+    },
+    {
+      "file": "film/0337.7.jpg",
+      "source": "assets/project_page_media/launch/film/film16_00337.7.jpg",
+      "size": [
+        320,
+        180
+      ]
+    },
+    {
+      "file": "film/0412.7.jpg",
+      "source": "assets/project_page_media/launch/film/film16_00412.7.jpg",
+      "size": [
+        320,
+        180
+      ]
+    },
+    {
+      "file": "film/0487.8.jpg",
+      "source": "assets/project_page_media/launch/film/film16_00487.8.jpg",
+      "size": [
+        320,
+        180
+      ]
+    },
+    {
+      "file": "film/0562.8.jpg",
+      "source": "assets/project_page_media/launch/film/film16_00562.8.jpg",
+      "size": [
+        320,
+        180
+      ]
+    },
+    {
+      "file": "film/0637.8.jpg",
+      "source": "assets/project_page_media/launch/film/film16_00637.8.jpg",
+      "size": [
+        320,
+        180
+      ]
+    },
+    {
+      "file": "film/0712.9.jpg",
+      "source": "assets/project_page_media/launch/film/film16_00712.9.jpg",
+      "size": [
+        320,
+        180
+      ]
+    },
+    {
+      "file": "film/0787.9.jpg",
+      "source": "assets/project_page_media/launch/film/film16_00787.9.jpg",
+      "size": [
+        320,
+        180
+      ]
+    },
+    {
+      "file": "film/0863.0.jpg",
+      "source": "assets/project_page_media/launch/film/film16_00863.0.jpg",
+      "size": [
+        320,
+        180
+      ]
+    },
+    {
+      "file": "film/0938.0.jpg",
+      "source": "assets/project_page_media/launch/film/film16_00938.0.jpg",
+      "size": [
+        320,
+        180
+      ]
+    },
+    {
+      "file": "film/1013.0.jpg",
+      "source": "assets/project_page_media/launch/film/film16_01013.0.jpg",
+      "size": [
+        320,
+        180
+      ]
+    },
+    {
+      "file": "film/1088.1.jpg",
+      "source": "assets/project_page_media/launch/film/film16_01088.1.jpg",
+      "size": [
+        320,
+        180
+      ]
+    },
+    {
+      "file": "film/1163.1.jpg",
+      "source": "assets/project_page_media/launch/film/film16_01163.1.jpg",
+      "size": [
+        320,
+        180
+      ]
+    }
+  ]
+}

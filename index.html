@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Open-OmniCoach: Evidence-Enhanced Trajectory Learning for Omni Video Agents</title>
+  <meta name="description" content="Open-OmniCoach trains omni video agents to find, connect, and correct audio-visual evidence in long videos, with the OmniCoach-240K trajectory dataset and SEPO, a step-level RL method.">
+  <link rel="icon" type="image/png" href="static/images/favicon_64.png">
+  <link rel="stylesheet" href="static/vendor/katex/katex.min.css?v=0.19.0">
+  <link rel="stylesheet" href="static/css/index.css?v=b3f87d8602">
+  <script defer src="static/data/traces.js?v=a4534a3183"></script>
+  <script defer src="static/data/demos.js?v=e6babc705b"></script>
+  <script defer src="static/data/demo_copy.js?v=692813e944"></script>
+  <script defer src="static/data/more_demos.js?v=6d86a7ba88"></script>
+  <script defer src="static/data/kitesurf_demo.js?v=dd6dd62b85"></script>
+  <script defer src="static/js/main.js?v=482e67e0df"></script>
+</head>
+<body>
+<a class="skip-link" href="#demos">Skip to content</a>
+
+<header class="site-nav">
+  <div class="nav-inner">
+    <a class="brand" href="#top">
+      <img src="static/images/icon_128.png" alt="" width="30" height="30">
+      <span>Open-OmniCoach</span>
+    </a>
+    <nav aria-label="Page sections">
+      <ul class="nav-links">
+        <li><a href="#demos">Demos</a></li>
+        <li><a href="#overview">Overview</a></li>
+        <li><a href="#data">Dataset</a></li>
+        <li><a href="#post-training">Method</a></li>
+        <li><a href="#results">Results</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <section class="hero hero-wall" aria-labelledby="paper-title">
+    <div class="hero-mosaic" aria-label="Explore eight recorded video cases"></div>
+    <div class="hero-scrim" aria-hidden="true"></div>
+    <div class="container">
+      <h1 class="paper-title" id="paper-title">
+        <span class="paper-wordmark"><img class="paper-icon" src="static/images/icon_256.png" alt="" width="64" height="64"><span class="name">Open-OmniCoach</span></span>
+        <span class="paper-subtitle">Evidence-Enhanced Trajectory Learning<br class="br-wide"> for Omni Video Agents</span>
+      </h1>
+      <p class="tagline">Find, connect, and correct audio-visual evidence in long videos.</p>
+      <p class="paper-meta"><strong>ByteDance Team</strong> <span aria-hidden="true">·</span> <a href="#authors">Full author list</a></p>
+      <div class="link-row">
+        <a class="btn btn-primary" href="#demos">Watch demos</a>
+        <!-- Replace spans with <a class="btn" href="..."> once public URLs are live -->
+        <span class="btn is-pending" aria-disabled="true">Paper (arXiv)<span class="btn-tag">Soon</span></span>
+        <span class="btn is-pending" aria-disabled="true">alphaXiv<span class="btn-tag">Soon</span></span>
+        <span class="btn is-pending" aria-disabled="true">GitHub<span class="btn-tag">Soon</span></span>
+        <span class="btn is-pending" aria-disabled="true">HuggingFace<span class="btn-tag">Soon</span></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt" id="demos" aria-labelledby="demos-title">
+    <div class="container">
+      <div class="section-heading">
+        <p class="eyebrow">Demos</p><h2 id="demos-title">Follow the evidence.</h2>
+        <p>Six recorded cases. Watch the search, the correction, and the evidence come together.</p>
+      </div>
+
+      <div class="demos dm-gallery" id="demo-player">
+        <template id="demo-template">
+        <article class="dm-panel">
+          <header class="dm-case-heading"><h3></h3><span></span></header>
+          <div class="dm-canvas">
+            <div class="dm-stage">
+              <video playsinline muted preload="metadata"></video>
+              <img class="dm-still" alt="" hidden>
+              <div class="dm-boxes" aria-hidden="true"></div>
+              <span class="dm-source-time"></span>
+              <p class="dm-error" role="status" hidden></p>
+            </div>
+            <div class="dm-source-track" aria-hidden="true"><div class="dm-source-spans"></div><div class="dm-source-progress"></div></div>
+            <div class="dm-transcript" tabindex="0" role="region" aria-label="Progressive reasoning transcript"></div>
+          </div>
+          <div class="dm-controls">
+            <button type="button" class="dm-play">Play</button>
+            <input class="dm-seek" type="range" min="0" max="1" step="0.1" value="0" aria-label="Demo playback position">
+            <span class="dm-elapsed"></span>
+            <button type="button" class="dm-sound" aria-pressed="false" aria-label="Turn sound on" title="Sound off"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4Z"/><path class="sound-muted" d="m16 9 6 6m0-6-6 6"/><path class="sound-waves" d="M15 8a6 6 0 0 1 0 8m3-11a10 10 0 0 1 0 14"/></svg></button>
+            <a class="dm-more-link" href="#trajectories">Trajectory</a>
+          </div>
+        </article>
+        </template>
+        <noscript><p>The demo player needs JavaScript. The evidence videos are in <code>static/videos/</code>.</p></noscript>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="overview" aria-labelledby="overview-title"><div class="container method-overview">
+<div class="section-heading"><p class="eyebrow">Overview</p><h2 id="overview-title">Connect. Correct. Credit.</h2><p>Multi-span and reflection data for SFT, then evidence-guided step credit for RL.</p></div>
+<table class="feature-table" aria-label="Three training mechanisms">
+<thead><tr><th scope="col"><span class="visually-hidden">Mechanism</span></th><th scope="col">Prior limitation</th><th scope="col">Our approach</th></tr></thead>
+<tbody>
+<tr><th scope="row"><span class="pillar-label">Connect</span></th>
+<td data-label="Prior limitation"><div class="feature-cell"><strong><span class="feature-status" aria-hidden="true">×</span>Single-span retrieval</strong><p>The agent retrieves one span per tool call.</p><svg class="micro-diagram" viewBox="0 0 280 36" aria-hidden="true"><path d="M0 30H280" class="micro-track"/><rect x="14" y="8" width="58" height="22" rx="4" fill="currentColor"/><rect x="110" y="8" width="58" height="22" rx="4" class="micro-empty"/><rect x="206" y="8" width="58" height="22" rx="4" class="micro-empty"/></svg></div></td>
+<td data-label="Our approach" class="feature-ours"><div class="feature-cell"><strong><span class="feature-status" aria-hidden="true">✓</span>Multi-span retrieval</strong><p>The agent retrieves and compares multiple audio-visual spans in one call.</p><svg class="micro-diagram" viewBox="0 0 280 36" aria-hidden="true"><path d="M0 30H280" class="micro-track"/><path d="M43 12V3H235V12M139 3V12" class="micro-link"/><g fill="currentColor"><rect x="14" y="12" width="58" height="18" rx="4"/><rect x="110" y="12" width="58" height="18" rx="4"/><rect x="206" y="12" width="58" height="18" rx="4"/></g></svg></div></td></tr>
+<tr><th scope="row"><span class="pillar-label">Correct</span></th>
+<td data-label="Prior limitation"><div class="feature-cell"><strong><span class="feature-status" aria-hidden="true">×</span>Success-only supervision</strong><p>The agent learns from successful rollouts alone.</p><svg class="micro-diagram" viewBox="0 0 280 36" aria-hidden="true"><path d="M18 18H155" class="micro-link"/><g fill="currentColor"><circle cx="18" cy="18" r="5"/><circle cx="88" cy="18" r="5"/></g><path d="M161 12L173 24M173 12L161 24" class="micro-error"/><path d="M185 18H260" class="micro-empty"/></svg></div></td>
+<td data-label="Our approach" class="feature-ours"><div class="feature-cell"><strong><span class="feature-status" aria-hidden="true">✓</span>Recovery supervision</strong><p>The agent learns from teacher corrections to its own failed rollouts.</p><svg class="micro-diagram" viewBox="0 0 280 36" aria-hidden="true"><path d="M18 23H88L142 7H206L260 23" class="micro-link"/><g fill="currentColor"><circle cx="18" cy="23" r="5"/><circle cx="88" cy="23" r="5"/><circle cx="142" cy="7" r="5"/><circle cx="206" cy="7" r="5"/></g><path d="M253 22L258 27L268 15" class="micro-link"/></svg></div></td></tr>
+<tr><th scope="row"><span class="pillar-label">Credit</span></th>
+<td data-label="Prior limitation"><div class="feature-cell"><strong><span class="feature-status" aria-hidden="true">×</span>Trajectory-level credit</strong><p>The RL objective assigns one advantage to every step in a rollout.</p><svg class="micro-diagram" viewBox="0 0 280 36" aria-hidden="true"><path d="M0 32H280" class="micro-track"/><g fill="currentColor"><rect x="24" y="12" width="44" height="20" rx="3"/><rect x="118" y="12" width="44" height="20" rx="3"/><rect x="212" y="12" width="44" height="20" rx="3"/></g></svg></div></td>
+<td data-label="Our approach" class="feature-ours"><div class="feature-cell"><strong><span class="feature-status" aria-hidden="true">✓</span>Evidence-guided step credit</strong><p>SEPO, our RL objective, rescales each step’s advantage using evidence gain.</p><svg class="micro-diagram" viewBox="0 0 280 36" aria-hidden="true"><path d="M0 32H280" class="micro-track"/><g fill="currentColor"><rect x="24" y="22" width="44" height="10" rx="3"/><rect x="118" y="12" width="44" height="20" rx="3"/><rect x="212" y="2" width="44" height="30" rx="3"/></g></svg></div></td></tr>
+</tbody></table>
+</div></section>
+
+  <section class="section section-alt" id="data" aria-labelledby="data-title"><div class="container">
+<div class="section-heading"><p class="eyebrow">Dataset</p><h2 id="data-title">OmniCoach-240K</h2><p>Evidence-grounded trajectories that teach both search and self-correction.</p></div>
+<dl class="dataset-facts"><div><dt>Trajectories</dt><dd>248.2K</dd></div><div><dt>QA &amp; grounding tasks</dt><dd>95.7K</dd></div><div><dt>Average video duration</dt><dd>8.87 <span>min</span></dd></div></dl>
+<figure class="teaser">
+<a href="static/images/fig2_pipeline.png?v=300f4fbbd3" title="Open the full-resolution figure">
+<img src="static/images/fig2_pipeline_2200.png?v=bbfbd2debd" loading="lazy" decoding="async"
+srcset="static/images/fig2_pipeline_2200.png?v=bbfbd2debd 2200w, static/images/fig2_pipeline.png?v=300f4fbbd3 3300w"
+sizes="(min-width: 1200px) 1120px, calc(100vw - 48px)"
+width="2200" height="863" alt="OmniCoach-240K data generation pipeline."></a>
+<figcaption>From annotated evidence to multi-span trajectories and recovery from student errors. <a class="fig-link" href="static/images/fig2_pipeline.png?v=300f4fbbd3">View full figure ↗</a></figcaption>
+</figure><div class="supplement-links"><details class="section-details"><summary>How the data is built</summary><div class="details-body"><p><strong>Figure 2. OmniCoach-240K data generation pipeline.</strong> (a) Hierarchical evidence QA generation: fine-grained audio-visual scripts are linked to a global event timeline, supporting skill-guided MCQ and TG generation followed by quality-aware filtering. (b) Multi-span trajectory generation: using Stage-1 and other-source QA samples, a teacher generates trajectories in the Dynamic Omni-Evidence Harness, which supports joint evidence acquisition across multiple time spans and modalities. (c) Reflection trajectory generation: a verifier diagnoses errors in student rollouts. At confirmed recovery points, a teacher preserves the erroneous draft, adds an evidence-grounded correction and a revised action, and continues the interaction. Both teacher and reflection trajectories are retained only after passing task-level outcome checks. <a class="fig-link" href="static/images/fig2_pipeline.png">Full resolution (PNG)</a></p><div class="stages">
+<div class="stage">
+<h3>Stage 1: Hierarchical Evidence QA Generation</h3>
+<p class="stage-meta">95.7K tasks: 55.3K MCQ and 40.4K TG.</p>
+<ol class="stage-steps">
+<li><b>Fine-grained Evidence Generation.</b> Segment-level audio-visual scripts record people, sound sources, and objects with a global entity table. Audiovisual Script Refinement then re-examines each segment to fix sound-source attribution, boundary drift, and missing facts.</li>
+<li><b>Event and Evidence Matching.</b> Scripts are merged into a concise global event timeline. Each event keeps links to its source intervals, so task construction can pick events top-down and expand local evidence bottom-up.</li>
+<li><b>Skill-guided QA Generation.</b> 18 MCQ reasoning skills and one TG skill guide the model to compose events and confounding distractors while recording task-level evidence annotations <span class="math"><var>𝒜</var><sub>x</sub></span>.</li>
+<li><b>Quality-aware Filtering.</b> Text-only guessable MCQs are dropped. A verifier answers each task from <span class="math"><var>𝒜</var><sub>x</sub></span> alone and from the full video; the answers must agree. TG requires a one-to-one match with a tIoU above threshold.</li>
+</ol>
+</div>
+
+<div class="stage">
+<h3>Stage 2: Multi-Span Trajectory Generation</h3>
+<div class="stage-body">
+<div class="stage-prose">
+<p>A teacher model (Gemini 3.6) interacts with the Dynamic Omni-Evidence Harness. Each trajectory starts with the task, tool specs, timestamped frames covering the whole video at 0.5 FPS (up to 256 frames at 224² pixels), and the full audio track. The teacher may issue up to 32 tool calls. Coarse frames are sampled at 1 FPS, detail frames at 2 FPS; the default longest side is 384 px, with resolution=high up to 1280 px for up to 5 s.</p>
+<p>The key extension is <code>get_multi_span</code>, which requests 2–8 ordered intervals in one call, each returning frames, audio, or both. This lets the model compare candidate spans side by side instead of accumulating errors across sequential calls. Trajectories pass an outcome check: correct answer for MCQ, or set-level tIoU plus minimum coverage for TG.</p>
+<p class="stage-links">See multi-span retrieval and harness-limit adaptation in the <a href="#trace-launch-S4">Car launch S4–S5 explorer</a>, and 4-span visual search in the <a href="#trace-istanbul-S14">Istanbul S13–S14 explorer</a> / <a href="#demo-istanbul">Istanbul video demo</a>.</p>
+</div>
+<div class="stage-table">
+<table class="tool-table" aria-labelledby="tool-table-title">
+<caption class="visually-hidden" id="tool-table-title">Dynamic Omni-Evidence Harness tool interface and per-call limits</caption>
+<thead><tr><th scope="col">Tool</th><th scope="col">Intervals</th><th scope="col">Returned evidence</th><th scope="col">Per-call limit</th></tr></thead>
+<tbody>
+<tr><td><code>get_frames</code></td><td>1</td><td>Sampled frames</td><td>At most 256 frames</td></tr>
+<tr><td><code>get_audio</code></td><td>1</td><td>Continuous audio</td><td>At most 256 s</td></tr>
+<tr><td><code>get_clip</code></td><td>1</td><td>Frames + audio</td><td>At most 60 s</td></tr>
+<tr class="ours"><td><code>get_multi_span</code></td><td>2–8 ordered</td><td>Frames, audio, or both per interval</td><td>At most 256 frames and 128 s audio total</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+<div class="stage">
+<h3>Stage 3: Reflection Trajectory Generation</h3>
+<p class="stage-meta">17.4K reflection trajectories from failed student rollouts.</p>
+<ol class="stage-steps">
+<li><b>Trajectory Collection.</b> Eight rollouts per query are sampled from the Stage-2 SFT student; failed trajectories are selected for diagnosis.</li>
+<li><b>AV-Decoupled Stepwise Verification.</b> A verifier examines key steps in temporal order, checking audio, visual, cross-modal, and agentic support, and stops at the first confirmed error.</li>
+<li><b>Same-Turn Recovery.</b> The student's erroneous draft is preserved, an evidence-grounded correction and revised tool call are added in the same turn, and the trajectory continues to a verified final answer.</li>
+</ol>
+<p class="stage-links">Inspect a real student visual hallucination and teacher high-resolution recovery in the <a href="#trace-porsche-S2">Porsche S2 explorer</a> / <a href="#demo-porsche">Porsche video demo</a>.</p>
+</div>
+</div>
+
+</div></details><details class="section-details"><summary>Data composition &amp; comparison</summary><div class="details-body"><div class="data-composition">
+<figure class="sankey">
+<a href="static/images/data_flow_sankey.png?v=30d93db7e4" title="Open the full-resolution figure">
+<img src="static/images/data_flow_sankey.png?v=30d93db7e4" loading="lazy" decoding="async" width="1600" height="873" alt="QA data flow behind OmniCoach-240K."></a>
+<figcaption><strong>Figure 3. QA data flow behind OmniCoach-240K.</strong> Band widths encode video hours between the first two columns and QA counts afterward. The brackets mark the source videos, Stage-1 (Hierarchical Evidence QA Generation), and the QA samples used for Stage-2 and Stage-3 trajectory generation; other-source QA samples join in the third column. Filtered out: source videos without any retained QA sample. Agentic SFT QA: QA samples covered by at least one retained Stage-2 teacher or Stage-3 reflection trajectory. <a class="fig-link" href="static/images/data_flow_sankey.png">Full resolution (PNG)</a></figcaption>
+</figure>
+
+<h3 class="table-title" id="dataset-title">Comparison with existing video and omni-video training datasets</h3>
+<table class="dataset-comp" aria-labelledby="dataset-title">
+<thead>
+<tr>
+<th scope="col" rowspan="2">Dataset</th>
+<th scope="col" rowspan="2">Mod.</th>
+<th scope="col" colspan="4">Diverse QA</th>
+<th scope="col" colspan="2">Dynamic Evidence Acquisition</th>
+<th scope="col" rowspan="2">Error Recovery</th>
+</tr>
+<tr>
+<th scope="col">#QA</th>
+<th scope="col">Formats</th>
+<th scope="col">Avg. Duration</th>
+<th scope="col">Evidence Ann.</th>
+<th scope="col">#Traj.</th>
+<th scope="col">Multi-span</th>
+</tr>
+</thead>
+<tbody>
+<tr><td>LongVALE</td><td>AV</td><td>N.R.</td><td>TG, FF</td><td>3.9 min</td><td>Time + text</td><td>--</td><td>--</td><td>×</td></tr>
+<tr><td>OmniVideo-100K</td><td>AV</td><td>100K</td><td>MCQ, FF</td><td>103 s</td><td>Time + text</td><td>--</td><td>--</td><td>×</td></tr>
+<tr><td>LongVT</td><td>V</td><td>N.R.</td><td>TG, FF</td><td>N.R.</td><td>Time</td><td>34.6K</td><td>×</td><td>×</td></tr>
+<tr><td>Video-o3</td><td>V</td><td>N.R.</td><td>MCQ, FF</td><td>N.R.</td><td>Time</td><td>173K</td><td>×</td><td>✓<sup>†</sup></td></tr>
+<tr><td>OmniAgent</td><td>AV</td><td>N.R.</td><td>TG, MCQ, FF</td><td>N.R.</td><td>N.R.</td><td>58K</td><td>×</td><td>✓<sup>†</sup></td></tr>
+<tr class="ours"><th scope="row">Open OmniCoach (Ours)</th><td>AV</td><td>95.7K</td><td>TG, MCQ, FF</td><td>8.87 min</td><td>Time + modality</td><td>248.2K</td><td>✓</td><td>✓</td></tr>
+</tbody>
+</table>
+<p class="table-note">TG: temporal grounding; MCQ: multiple-choice QA; FF: free-form QA/generation; N.R.: not reported. For Ours, average duration is the mean duration of unique videos covered by QA data. In Error Recovery, ✓<sup>†</sup> denotes synthetic self-reflection samples (Video-o3) or teacher retries on environment errors (OmniAgent), whereas Open OmniCoach recovers from failed student rollouts.</p>
+</div></div></details></div></div></section>
+
+  <section class="section" id="post-training" aria-labelledby="post-training-title"><div class="container">
+<div class="section-heading"><p class="eyebrow">Method</p><h2 id="post-training-title">SEPO: credit useful steps.</h2><p>Adjust each step’s update by the evidence it adds, while preserving the trajectory advantage’s sign.</p></div>
+<div class="sepo-lab" aria-label="How SEPO adjusts step advantages">
+  <div class="sepo-rule">
+    <p class="sepo-label">Step-level advantage</p>
+    <div class="sepo-main-math"><!-- math:advantage --><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mover accent="true"><mi>A</mi><mo stretchy="true">~</mo></mover><mrow><mi>i</mi><mo separator="true">,</mo><mi>k</mi></mrow></msub><mo>=</mo><msub><mi>A</mi><mi>i</mi></msub><mo>+</mo><mi>λ</mi><mo stretchy="false">∣</mo><msub><mi>A</mi><mi>i</mi></msub><mo stretchy="false">∣</mo><msub><mi>z</mi><mrow><mi>i</mi><mo separator="true">,</mo><mi>k</mi></mrow></msub></mrow><annotation encoding="application/x-tex">\widetilde A_{i,k}=A_i+\lambda\lvert A_i\rvert z_{i,k}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:1.2294em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord katex-accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.9433em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal">A</span></span><span class="svg-align" style="width:calc(100% - 0.2778em);margin-left:0.2778em;top:-3.6833em;"><span class="pstrut" style="height:3em;"></span><span style="height:0.26em;"><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="0.26em" viewBox="0 0 600 260" preserveAspectRatio="none"><path d="M200 55.538c-77 0-168 73.953-177 73.953-3 0-7
+-2.175-9-5.437L2 97c-1-2-2-4-2-6 0-4 2-7 5-9l20-12C116 12 171 0 207 0c86 0
+ 114 68 191 68 78 0 168-68 177-68 4 0 7 2 9 5l12 19c1 2.175 2 4.35 2 6.525 0
+ 4.35-2 7.613-5 9.788l-19 13.05c-92 63.077-116.937 75.308-183 76.128
+-68.267.847-113-73.952-191-73.952z"/></svg></span></span></span></span></span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight" style="margin-right:0.0315em;">k</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">A</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:1.0361em;vertical-align:-0.2861em;"></span><span class="mord mathnormal">λ</span><span class="mopen">∣</span><span class="mord"><span class="mord mathnormal">A</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">∣</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.044em;">z</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.044em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight" style="margin-right:0.0315em;">k</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span></span></span></span><!-- /math:advantage --></div>
+    <div class="sepo-normalized-math"><!-- math:normalized --><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>z</mi><mrow><mi>i</mi><mo separator="true">,</mo><mi>k</mi></mrow></msub><mo>=</mo><mi mathvariant="normal">clip</mi><mo>⁡</mo><mtext> ⁣</mtext><mrow><mo fence="true">(</mo><mfrac><mrow><mi mathvariant="normal">Δ</mi><msub><mi>U</mi><mrow><mi>i</mi><mo separator="true">,</mo><mi>k</mi></mrow></msub><mo>−</mo><msub><mi>μ</mi><mi>i</mi></msub></mrow><mrow><msub><mi>σ</mi><mi>i</mi></msub><mo>+</mo><mi>δ</mi></mrow></mfrac><mo separator="true">,</mo><mo>−</mo><mn>1</mn><mo separator="true">,</mo><mn>1</mn><mo fence="true">)</mo></mrow></mrow><annotation encoding="application/x-tex">z_{i,k}=\operatorname{clip}\!\left(\frac{\Delta U_{i,k}-\mu_i}{\sigma_i+\delta},-1,1\right)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.7167em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.044em;">z</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.044em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight" style="margin-right:0.0315em;">k</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:2.4em;vertical-align:-0.95em;"></span><span class="mop"><span class="mord mathrm">clip</span></span><span class="mspace" style="margin-right:-0.1667em;"></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size3">(</span></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3603em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.0359em;">σ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal" style="margin-right:0.0379em;">δ</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">Δ</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.109em;">U</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.109em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight" style="margin-right:0.0315em;">k</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord"><span class="mord mathnormal">μ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.836em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">−</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">1</span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size3">)</span></span></span></span></span></span></span><!-- /math:normalized --></div>
+    <p class="sepo-rule-note">Evidence gains are standardized within each rollout, then clipped to [−1, 1].</p>
+    <div class="sepo-guarantee"><span><!-- math:bound --><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mo>≤</mo><mi>λ</mi><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">0\leq\lambda&lt;1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.7804em;vertical-align:-0.136em;"></span><span class="mord">0</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:0.7335em;vertical-align:-0.0391em;"></span><span class="mord mathnormal">λ</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span><!-- /math:bound --></span><span>The advantage keeps its sign.</span></div>
+  </div>
+  <div class="sepo-effects">
+    <p class="sepo-label">Above-average evidence gain</p>
+    <figure class="sepo-effect">
+      <figcaption><span>Positive advantage</span><strong>Stronger reinforcement</strong></figcaption>
+      <svg viewBox="0 0 430 92" role="img" aria-label="Positive advantage: trajectory plus 1 becomes step advantage plus 1.5.">
+        <path class="sepo-zero" d="M230 18V88"/><text class="sepo-zero-label" x="230" y="11">0</text>
+        <text class="sepo-bar-label" x="0" y="41">Trajectory</text><rect class="sepo-before" x="230" y="26" width="90" height="22" rx="3"/><text class="sepo-value" x="330" y="41">+1.0</text>
+        <text class="sepo-bar-label" x="0" y="77">This step</text><rect class="sepo-after" x="230" y="62" width="135" height="22" rx="3"/><text class="sepo-value sepo-value-after" x="375" y="77">+1.5</text>
+      </svg>
+    </figure>
+    <figure class="sepo-effect">
+      <figcaption><span>Negative advantage</span><strong>Weaker suppression</strong></figcaption>
+      <svg viewBox="0 0 430 92" role="img" aria-label="Negative advantage: trajectory minus 1 becomes step advantage minus 0.5. Both remain below zero.">
+        <path class="sepo-zero" d="M230 18V88"/><text class="sepo-zero-label" x="230" y="11">0</text>
+        <text class="sepo-bar-label" x="0" y="41">Trajectory</text><rect class="sepo-before sepo-before-negative" x="140" y="26" width="90" height="22" rx="3"/><text class="sepo-value sepo-value-negative" x="130" y="41">−1.0</text>
+        <text class="sepo-bar-label" x="0" y="77">This step</text><rect class="sepo-after" x="185" y="62" width="45" height="22" rx="3"/><text class="sepo-value sepo-value-negative sepo-value-after" x="175" y="77">−0.5</text>
+      </svg>
+    </figure>
+    <p class="sepo-example-note">Illustration with λ = 0.5 and normalized gain z = 1.</p>
+  </div>
+</div>
+<ol class="sepo-mechanics">
+  <li><span class="sepo-index">01</span><h3>Evidence utility</h3><p>Score the best subset of retrieved spans against the task’s annotated evidence.</p><div class="sepo-score-tags"><span>Evidence coverage</span><span>Temporal localization</span></div></li>
+  <li><span class="sepo-index">02</span><h3>Marginal gain</h3><p>Measure improvement over the best evidence found so far. Repeated evidence adds no new gain.</p><div class="sepo-gain-math"><!-- math:gain --><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Δ</mi><msub><mi>U</mi><mrow><mi>i</mi><mo separator="true">,</mo><mi>k</mi></mrow></msub><mo>=</mo><msub><mi>U</mi><mrow><mi>i</mi><mo separator="true">,</mo><mi>k</mi></mrow></msub><mo>−</mo><msub><mi>U</mi><mrow><mi>i</mi><mo separator="true">,</mo><mi>k</mi><mo>−</mo><mn>1</mn></mrow></msub></mrow><annotation encoding="application/x-tex">\Delta U_{i,k}=U_{i,k}-U_{i,k-1}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.9694em;vertical-align:-0.2861em;"></span><span class="mord">Δ</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.109em;">U</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.109em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight" style="margin-right:0.0315em;">k</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:0.9694em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.109em;">U</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.109em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight" style="margin-right:0.0315em;">k</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:0.9694em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.109em;">U</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.109em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight" style="margin-right:0.0315em;">k</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span></span></span></span><!-- /math:gain --></div></li>
+  <li><span class="sepo-index">03</span><h3>Step advantage</h3><p>Use the normalized gain to adjust the strength of each step’s token updates.</p></li>
+</ol>
+<div class="supplement-links">
+  <details class="section-details"><summary>Evidence scoring &amp; optimization</summary><div class="details-body sepo-details">
+    <p><strong>Task-specific evidence utility.</strong> The scorer matches the modalities and temporal intervals of retrieved spans to the task’s evidence annotations. For QA, it combines coverage and locality: <span class="sepo-inline-math"><!-- math:scoring --><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>q</mi><mi>m</mi></msub><mo>=</mo><mi>α</mi><msub><mi>c</mi><mi>m</mi></msub><mo>+</mo><mo stretchy="false">(</mo><mn>1</mn><mo>−</mo><mi>α</mi><mo stretchy="false">)</mo><msub><mi mathvariant="normal">ℓ</mi><mi>m</mi></msub></mrow><annotation encoding="application/x-tex">q_m=\alpha c_m+(1-\alpha)\ell_m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0359em;">q</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">m</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:0.7333em;vertical-align:-0.15em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span><span class="mord"><span class="mord mathnormal">c</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">m</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span><span class="mclose">)</span><span class="mord"><span class="mord">ℓ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">m</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span><!-- /math:scoring --></span>, with α = 0.5 by default. For temporal grounding, it uses the TimeLens2 grounding reward scaled to [0, 1]. Scores are combined across annotated modalities.</p>
+    <p><strong>Historical best, then incremental gain.</strong> A bounded subset search selects the best-matching retrieved evidence. The utility keeps the historical best score, so redundant or irrelevant retrieval does not lower evidence already acquired. The next step’s gain is the improvement over that best score.</p>
+    <p><strong>Within-rollout normalization.</strong> μ and σ are the mean and standard deviation of the step gains; δ is a positive stability term. An above-average gain gives z &gt; 0. A positive raw gain alone does not guarantee a positive adjustment. The group-relative trajectory advantage comes from outcome and format rewards.</p>
+    <p><strong>Token updates.</strong> Each generated token receives its step’s adjusted advantage in the GSPO-token objective. With λ = 0, SEPO reduces to the GSPO update. Evidence annotations guide training; the agent does not receive them at inference.</p>
+  </div></details>
+  <details class="section-details"><summary>Full training recipe</summary><div class="details-body"><ol class="training-path">
+    <li><span class="training-number" aria-hidden="true">01</span><div><h3>Multi-span SFT</h3><p>Train the base model on teacher-generated multi-span trajectories. Use this first SFT model to collect student rollouts and build reflection trajectories from its failures.</p></div></li>
+    <li><span class="training-number" aria-hidden="true">02</span><div><h3>Mixed-data SFT</h3><p>Start again from the same base checkpoint and train on both multi-span and reflection trajectories. This model initializes reinforcement learning.</p></div></li>
+    <li><span class="training-number" aria-hidden="true">03</span><div><h3>Evidence-guided RL</h3><p>Optimize the interaction policy with SEPO, combining trajectory-level outcome feedback with the evidence contribution of individual steps.</p></div></li>
+  </ol></div></details>
+</div></div></section>
+
+  <section class="section section-alt" id="results" aria-labelledby="results-title">
+    <div class="container">
+      <div class="section-heading"><h2 id="results-title">Results</h2><p>Compare Open OmniAgent with its base model across audio-visual and video benchmarks.</p></div>
+      <div class="result-controls" hidden>
+        <div class="result-tabs" role="tablist" aria-label="Benchmark category"><button class="result-tab" id="results-tab-av" role="tab" aria-selected="true" aria-controls="results-panel" data-domain="av">Audio-visual understanding</button><button class="result-tab" id="results-tab-video" role="tab" aria-selected="false" aria-controls="results-panel" tabindex="-1" data-domain="video">Video understanding</button></div>
+        <div class="result-model-label"><label for="result-model">Model</label><select id="result-model"><option value="30b">30B-A3B</option><option value="7b">7B</option></select></div>
+      </div>
+      <p class="visually-hidden" role="status" id="result-announcement"></p>
+      <div id="results-panel" role="tabpanel" aria-labelledby="results-tab-av">
+<div class="result-view" data-domain="av" data-model="30b">
+<div class="result-caption"><p>Open OmniAgent-30B-A3B vs. Qwen3-Omni-30B-A3B</p></div>
+<table class="result-table"><caption class="visually-hidden">av benchmarks, 30B-A3B, compared with the base model</caption><thead><tr><th scope="col">Benchmark</th><th scope="col">Base model</th><th scope="col" class="result-ours">Open OmniAgent</th><th scope="col" title="Gains are reported before display rounding.">Gain</th></tr></thead><tbody><tr><th scope="row">WorldSense</th><td>54.0</td><td class="result-ours">54.8</td><td class="result-gain">+0.8</td></tr><tr><th scope="row">Daily-Omni</th><td>71.9</td><td class="result-ours">75.0</td><td class="result-gain">+3.2</td></tr><tr><th scope="row">JointAVBench</th><td>63.6</td><td class="result-ours">64.9</td><td class="result-gain">+1.3</td></tr><tr><th scope="row">OmniVideoBench</th><td>38.4</td><td class="result-ours">47.9</td><td class="result-gain">+9.5</td></tr><tr><th scope="row">LVOmniBench</th><td>35.8</td><td class="result-ours">48.0</td><td class="result-gain">+12.2</td></tr><tr class="result-average"><th scope="row">Average</th><td>52.7</td><td class="result-ours">58.1</td><td class="result-gain">+5.4</td></tr></tbody></table>
+<p class="result-note">Accuracy (%) and percentage-point gains over the base model.</p></div>
+<div class="result-view" data-domain="av" data-model="7b" hidden>
+<div class="result-caption"><p>Open OmniAgent-7B vs. Qwen2.5-Omni-7B</p></div>
+<table class="result-table"><caption class="visually-hidden">av benchmarks, 7B, compared with the base model</caption><thead><tr><th scope="col">Benchmark</th><th scope="col">Base model</th><th scope="col" class="result-ours">Open OmniAgent</th><th scope="col" title="Gains are reported before display rounding.">Gain</th></tr></thead><tbody><tr><th scope="row">WorldSense</th><td>45.4</td><td class="result-ours">48.9</td><td class="result-gain">+3.5</td></tr><tr><th scope="row">Daily-Omni</th><td>62.1</td><td class="result-ours">70.2</td><td class="result-gain">+8.1</td></tr><tr><th scope="row">JointAVBench</th><td>56.5</td><td class="result-ours">59.3</td><td class="result-gain">+2.8</td></tr><tr><th scope="row">OmniVideoBench</th><td>29.3</td><td class="result-ours">40.4</td><td class="result-gain">+11.1</td></tr><tr><th scope="row">LVOmniBench</th><td>32.0</td><td class="result-ours">37.8</td><td class="result-gain">+5.8</td></tr><tr class="result-average"><th scope="row">Average</th><td>45.1</td><td class="result-ours">51.3</td><td class="result-gain">+6.3</td></tr></tbody></table>
+<p class="result-note">Accuracy (%) and percentage-point gains over the base model.</p></div>
+<div class="result-view" data-domain="video" data-model="30b" hidden>
+<div class="result-caption"><p>Open OmniAgent-30B-A3B vs. Qwen3-Omni-30B-A3B</p></div>
+<table class="result-table"><caption class="visually-hidden">video benchmarks, 30B-A3B, compared with the base model</caption><thead><tr><th scope="col">Benchmark</th><th scope="col">Base model</th><th scope="col" class="result-ours">Open OmniAgent</th><th scope="col" title="Gains are reported before display rounding.">Gain</th></tr></thead><tbody><tr><th scope="row">Video-MME</th><td>70.5</td><td class="result-ours">75.9</td><td class="result-gain">+5.4</td></tr><tr><th scope="row">Video-MME v2 · Acc.</th><td>34.1</td><td class="result-ours">44.4</td><td class="result-gain">+10.3</td></tr><tr><th scope="row">Video-MME v2 · Rating</th><td>17.1</td><td class="result-ours">25.5</td><td class="result-gain">+8.4</td></tr><tr><th scope="row">LongVideoBench</th><td>66.9</td><td class="result-ours">67.4</td><td class="result-gain">+0.5</td></tr><tr><th scope="row">LVBench</th><td>50.2</td><td class="result-ours">63.5</td><td class="result-gain">+13.3</td></tr><tr><th scope="row">VideoZeroBench · L3</th><td>—</td><td class="result-ours">12.0</td><td class="result-gain">—</td></tr></tbody></table>
+<p class="result-note">Accuracy (%) except for the official Video-MME v2 Rating. VideoZeroBench uses Level-3 accuracy. Video-MME v2 baselines use the leaderboard’s with-subtitle/audio setting. Gains use the same scale as each metric; — means unavailable.</p></div>
+<div class="result-view" data-domain="video" data-model="7b" hidden>
+<div class="result-caption"><p>Open OmniAgent-7B vs. Qwen2.5-Omni-7B</p></div>
+<table class="result-table"><caption class="visually-hidden">video benchmarks, 7B, compared with the base model</caption><thead><tr><th scope="col">Benchmark</th><th scope="col">Base model</th><th scope="col" class="result-ours">Open OmniAgent</th><th scope="col" title="Gains are reported before display rounding.">Gain</th></tr></thead><tbody><tr><th scope="row">Video-MME</th><td>64.3</td><td class="result-ours">67.9</td><td class="result-gain">+3.6</td></tr><tr><th scope="row">Video-MME v2 · Acc.</th><td>—</td><td class="result-ours">36.5</td><td class="result-gain">—</td></tr><tr><th scope="row">Video-MME v2 · Rating</th><td>—</td><td class="result-ours">18.4</td><td class="result-gain">—</td></tr><tr><th scope="row">LongVideoBench</th><td>53.8</td><td class="result-ours">57.1</td><td class="result-gain">+3.3</td></tr><tr><th scope="row">LVBench</th><td>43.0</td><td class="result-ours">51.7</td><td class="result-gain">+8.7</td></tr><tr><th scope="row">VideoZeroBench · L3</th><td>—</td><td class="result-ours">6.4</td><td class="result-gain">—</td></tr></tbody></table>
+<p class="result-note">Accuracy (%) except for the official Video-MME v2 Rating. VideoZeroBench uses Level-3 accuracy. Video-MME v2 baselines use the leaderboard’s with-subtitle/audio setting. Gains use the same scale as each metric; — means unavailable.</p></div>
+      </div>
+      <section class="ablation-section" id="training-ablation" aria-labelledby="ablation-title"><h3 id="ablation-title">What each training stage contributes</h3><p class="result-note">Qwen3-Omni-30B-A3B-Instruct · accuracy (%). Both SFT recipes start from the base checkpoint.</p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Training ablations, scroll horizontally"><table class="research-table ablation-table"><caption class="visually-hidden">Ablations on Qwen3-Omni-30B-A3B-Instruct, accuracy (%)</caption><thead><tr><th scope="col">Training recipe</th><th scope="col">Video-MME</th><th scope="col">Video-MME v2</th><th scope="col">OmniVideoBench</th><th scope="col">LVOmniBench</th><th scope="col">Avg.</th></tr></thead><tbody><tr><th scope="row">Base model</th><td>70.5</td><td>34.1</td><td>38.4</td><td>35.8</td><td>44.7</td></tr><tr><th scope="row">Multi-span SFT</th><td>72.9</td><td>40.7</td><td>44.7</td><td>46.8</td><td>51.3</td></tr><tr><th scope="row">Multi-span + reflection SFT</th><td>74.4</td><td>42.6</td><td>46.3</td><td>47.5</td><td>52.7</td></tr><tr><th scope="row">Reflection SFT → GSPO</th><td>75.4</td><td>43.3</td><td>46.9</td><td>47.7</td><td>53.3</td></tr><tr class="ours"><th scope="row">Reflection SFT → SEPO</th><td>75.9</td><td>44.4</td><td>47.9</td><td>48.0</td><td>54.1</td></tr></tbody></table></div><p class="result-note">GSPO and SEPO are alternative RL runs from the same reflection SFT checkpoint.</p>
+
+<div class="sub-ablation-grid">
+  <div class="sub-ablation-card">
+    <h4>Controlled reflection ablation (equal 62.0K volume)</h4>
+    <p class="result-note">57.7K multi-span + 4.4K extra trajectories on Qwen3-Omni-30B-A3B. Pre-mistake student turns are masked; even 1 corrective turn beats equal-volume Stage-2 success with fewer tokens.</p>
+    <div class="table-scroll" tabindex="0" role="region" aria-label="Controlled reflection ablation"><table class="research-table"><thead><tr><th scope="col">+ 4.4K Subset</th><th scope="col">Tokens/Ep.</th><th scope="col">V-MME v2</th><th scope="col">OVB</th><th scope="col">4-Bench Avg.</th></tr></thead><tbody><tr><th scope="row">Stage-2 Success</th><td>21.15M</td><td>37.4</td><td>41.4</td><td>48.0</td></tr><tr><th scope="row">Reflection (1 turn)</th><td>20.94M</td><td>37.9</td><td>42.1</td><td>48.5</td></tr><tr><th scope="row">Reflection (2 turns)</th><td>21.56M</td><td>38.5</td><td>42.5</td><td>48.9</td></tr><tr><th scope="row">Reflection (3 turns)</th><td>21.96M</td><td>38.7</td><td>42.4</td><td>49.1</td></tr><tr class="ours"><th scope="row">Reflection (Full)</th><td>22.82M</td><td>38.9</td><td>42.7</td><td>49.2</td></tr></tbody></table></div>
+  </div>
+  <div class="sub-ablation-card">
+    <h4>Process-level audit on OmniVideoBench (1,000 queries)</h4>
+    <p class="result-note">Audited against 3,577 human-annotated evidence facts. At comparable search depth to GSPO, SEPO retrieves tighter spans with higher focused recall, fewer invalid calls, and stronger error-to-correct recovery.</p>
+    <div class="table-scroll" tabindex="0" role="region" aria-label="Process-level audit"><table class="research-table"><thead><tr><th scope="col">Method</th><th scope="col">Calls</th><th scope="col">Invalid ↓</th><th scope="col">Span ↓</th><th scope="col">Hit ≤30s ↑</th><th scope="col">Err→Corr (+Ans) ↑</th></tr></thead><tbody><tr><th scope="row">Reflection SFT</th><td>3.9</td><td>8.4%</td><td>43.3 s</td><td>58.2%</td><td>9.0% (5.5%)</td></tr><tr><th scope="row">+ GSPO (λ=0)</th><td>5.4</td><td>15.1%</td><td>46.0 s</td><td>61.3%</td><td>12.0% (5.0%)</td></tr><tr class="ours"><th scope="row">+ SEPO (λ=0.1)</th><td>5.5</td><td>13.2%</td><td>42.1 s</td><td>62.9%</td><td>12.6% (7.1%)</td></tr></tbody></table></div>
+  </div>
+</div></section>
+      <div class="supplement-links">
+      <details class="research-details" id="full-results"><summary>Full benchmark comparison</summary><p>Reported scores for proprietary, open-source generalist, and agentic models. Blue rows mark Open OmniAgent. — means a result is unavailable.</p>
+<div class="result-full" data-domain="av"><div class="table-scroll" tabindex="0" role="region" aria-label="Full av comparison, scroll horizontally"><table class="research-table"><caption class="visually-hidden">Full av comparison reported in the manuscript</caption><thead><tr><th scope="col">Method</th><th scope="col">Size</th><th scope="col">WorldSense</th><th scope="col">Daily-Omni</th><th scope="col">JointAVBench</th><th scope="col">OmniVideoBench</th><th scope="col">LVOmniBench</th><th scope="col">Average</th></tr></thead><tbody><tr class="table-group"><th colspan="8">Proprietary Models</th></tr><tr><th scope="row">GPT-4o</th><td>—</td><td>42.6</td><td>56.5</td><td>45.0</td><td>—</td><td>—</td><td>—</td></tr><tr><th scope="row">Gemini-2.0-Flash</th><td>—</td><td>—</td><td>67.8</td><td>—</td><td>41.5</td><td>42.9</td><td>—</td></tr><tr><th scope="row">Gemini-2.5-Pro</th><td>—</td><td>65.1</td><td>80.6</td><td>65.3</td><td>58.9</td><td>—</td><td>—</td></tr><tr><th scope="row">Gemini-3.0-Pro</th><td>—</td><td>66.4</td><td>81.1</td><td>—</td><td>61.8</td><td>65.8</td><td>—</td></tr><tr class="table-group"><th colspan="8">Open-source Generalist Models</th></tr><tr><th scope="row">video-SALMONN 2+</th><td>7B</td><td>50.9</td><td>71.8</td><td>46.7</td><td>36.4</td><td>32.7</td><td>47.7</td></tr><tr><th scope="row">OmniVinci</th><td>9B</td><td>48.2</td><td>66.5</td><td>—</td><td>32.1</td><td>—</td><td>—</td></tr><tr><th scope="row">Qwen2.5-VL</th><td>7B</td><td>35.5</td><td>40.7</td><td>47.7</td><td>29.8</td><td>—</td><td>—</td></tr><tr><th scope="row">Qwen2.5-Omni</th><td>7B</td><td>45.4</td><td>62.1</td><td>56.5</td><td>29.3</td><td>32.0</td><td>45.1</td></tr><tr><th scope="row">Qwen3-Omni-Instruct</th><td>30B-A3B</td><td>54.0</td><td>71.9</td><td>63.6</td><td>38.4</td><td>35.8</td><td>52.7</td></tr><tr class="table-group"><th colspan="8">Open-source Agentic Models</th></tr><tr><th scope="row">OmniAgent</th><td>7B</td><td>47.2</td><td>64.8</td><td>—</td><td>37.1</td><td>—</td><td>—</td></tr><tr class="ours"><th scope="row">Open OmniAgent (Ours)</th><td>7B</td><td>48.9</td><td>70.2</td><td>59.3</td><td>40.4</td><td>37.8</td><td>51.3</td></tr><tr class="ours"><th scope="row">Open OmniAgent (Ours)</th><td>30B-A3B</td><td>54.8</td><td>75.0</td><td>64.9</td><td>47.9</td><td>48.0</td><td>58.1</td></tr></tbody></table></div></div>
+<div class="result-full" data-domain="video" hidden><div class="table-scroll" tabindex="0" role="region" aria-label="Full video comparison, scroll horizontally"><table class="research-table"><caption class="visually-hidden">Full video comparison reported in the manuscript</caption><thead><tr><th scope="col">Method</th><th scope="col">Size</th><th scope="col">Video-MME</th><th scope="col">Video-MME v2 · Acc.</th><th scope="col">Video-MME v2 · Rating</th><th scope="col">LongVideoBench</th><th scope="col">LVBench</th><th scope="col">VideoZeroBench · L3</th></tr></thead><tbody><tr class="table-group"><th colspan="8">Proprietary Models</th></tr><tr><th scope="row">GPT-4o</th><td>—</td><td>71.9</td><td>—</td><td>—</td><td>66.7</td><td>48.9</td><td>—</td></tr><tr><th scope="row">Gemini-1.5-Pro</th><td>—</td><td>75.0</td><td>—</td><td>—</td><td>64.0</td><td>33.1</td><td>—</td></tr><tr><th scope="row">Gemini-2.5-Pro</th><td>—</td><td>—</td><td>—</td><td>—</td><td>76.8</td><td>67.4</td><td>16.4</td></tr><tr><th scope="row">Gemini-3.0-Pro</th><td>—</td><td>88.6</td><td>66.1</td><td>49.4</td><td>75.9</td><td>77.0</td><td>17.0</td></tr><tr class="table-group"><th colspan="8">Open-source Generalist Models</th></tr><tr><th scope="row">Qwen2.5-Omni</th><td>7B</td><td>64.3</td><td>—</td><td>—</td><td>53.8</td><td>43.0</td><td>—</td></tr><tr><th scope="row">Qwen3-Omni-Instruct</th><td>30B-A3B</td><td>70.5</td><td>34.1</td><td>17.1</td><td>66.9</td><td>50.2</td><td>—</td></tr><tr><th scope="row">Qwen3-VL-Instruct</th><td>8B</td><td>71.4</td><td>35.7</td><td>18.2</td><td>66.4</td><td>58.0</td><td>8.2</td></tr><tr><th scope="row">Qwen3-VL-Instruct</th><td>235B-A22B</td><td>79.2</td><td>43.3</td><td>25.0</td><td>—</td><td>67.7</td><td>9.6</td></tr><tr><th scope="row">Qwen3.5</th><td>397B-A17B</td><td>83.7</td><td>42.1</td><td>24.5</td><td>—</td><td>75.5</td><td>10.6</td></tr><tr class="table-group"><th colspan="8">Open-source Agentic Models</th></tr><tr><th scope="row">OmniAgent</th><td>7B</td><td>67.8</td><td>—</td><td>—</td><td>—</td><td>50.5</td><td>—</td></tr><tr class="ours"><th scope="row">Open OmniAgent-7B</th><td>7B</td><td>67.9</td><td>36.5</td><td>18.4</td><td>57.1</td><td>51.7</td><td>6.4</td></tr><tr class="ours"><th scope="row">Open OmniAgent-30B</th><td>30B-A3B</td><td>75.9</td><td>44.4</td><td>25.5</td><td>67.4</td><td>63.5</td><td>12.0</td></tr></tbody></table></div></div></details>
+      </div>
+      <noscript><p class="result-note">Showing the 30B audio-visual comparison. Enable JavaScript to switch model size or benchmark category.</p></noscript>
+    </div>
+  </section>
+
+  <section class="section" id="trajectories" aria-labelledby="trajectories-title"><div class="container">
+<div class="section-heading"><p class="eyebrow">A closer look</p><h2 id="trajectories-title">Explore the full trajectories.</h2><p>Step-by-step tool calls, returned audio-visual evidence, and model reasoning.</p></div>
+<div class="explorer" id="explorer">
+        <div class="ex-tabs" role="tablist" aria-label="Trajectory"></div>
+        <div class="ex-panel" role="tabpanel" aria-live="polite"></div>
+        <noscript><p class="ex-noscript">The explorer needs JavaScript. Figure 1 above shows the key steps of three of the four trajectories.</p></noscript>
+      </div>
+    </div></section>
+
+  <section class="section section-alt" id="authors" aria-labelledby="authors-title">
+    <div class="container">
+      <div class="narrow">
+        <div class="authors-block">
+          <h2 id="authors-title">Authors &amp; Contributions</h2>
+          <p class="authors-list">
+            Weisong Liu<sup>1</sup>, Xiangtai Li<sup>1</sup>, Haochen Wang<sup>2</sup>, Haiquan Wen<sup>3</sup>, Zhaoxiang Zhang<sup>2,†</sup>
+          </p>
+          <p class="affiliations-list">
+            <span><sup>1</sup>ByteDance</span>
+            <span><sup>2</sup>Institute of Automation, Chinese Academy of Sciences (CASIA)</span>
+            <span><sup>3</sup>Peking University</span>
+          </p>
+          <p class="correspondence-note"><sup>†</sup>Corresponding author. Paper, code, and resources will be linked above upon public release.</p>
+        </div>
+
+        <div id="bibtex">
+          <div class="bibtex-head">
+            <h3>Citation</h3>
+            <button type="button" class="btn btn-small" id="copy-bibtex-btn">Copy BibTeX</button>
+          </div>
+          <pre class="bibtex-pre"><code id="bibtex-code">@article{liu2026openomnicoach,
+  title={Open-OmniCoach: Evidence-Enhanced Trajectory Learning for Omni Video Agents},
+  author={Liu, Weisong and Li, Xiangtai and Wang, Haochen and Wen, Haiquan and Zhang, Zhaoxiang},
+  journal={arXiv preprint arXiv:2611.XXXXX},
+  year={2026}
+}</code></pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <dialog class="ex-lightbox" id="ex-lightbox" aria-label="Frame">
+    <img alt="">
+    <p class="ex-lightbox-cap"></p>
+    <button type="button" class="btn ex-lightbox-close">Close</button>
+  </dialog>
+
+</main>
+<footer class="site-footer"><div class="container"><span>Open-OmniCoach</span><p>Demo presentation inspired by <a href="https://msalab-pku.github.io/projects/Open-o3-Video-v2/">Open-o3-Video-v2</a>; scene wall inspired by <a href="https://worldexam.github.io/">WorldExam</a>.</p><a href="#top">Back to top ↑</a></div></footer>
+</body>
+</html>
